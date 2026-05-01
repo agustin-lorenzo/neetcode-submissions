@@ -1,0 +1,24 @@
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        adj = {node: [] for node in range(n)}
+        for node, neighbor in edges:
+            adj[node].append(neighbor)
+            adj[neighbor].append(node) # don't know where start of tree is, assume bidirectional because we could be moving up or down into tree
+
+        visited = set()
+        def dfs(node, parent):
+            if node in visited:
+                return False
+            
+            visited.add(node)
+            for neighbor in adj[node]:
+                if neighbor == parent:
+                    continue
+                if not dfs(neighbor, node):
+                    return False
+            return True
+        
+        if not dfs(0, None):
+            return False
+        
+        return len(visited) == n
