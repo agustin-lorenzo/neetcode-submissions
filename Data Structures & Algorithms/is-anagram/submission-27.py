@@ -1,0 +1,12 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        smap, tmap = defaultdict(int), defaultdict(int)
+        for i in range(len(s)):
+            sc, tc = s[i], t[i]
+            smap[sc] += 1
+            tmap[tc] += 1
+        
+        return smap == tmap
